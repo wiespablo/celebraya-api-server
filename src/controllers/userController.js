@@ -3,26 +3,6 @@ require('dotenv');
 const User = require("../models/user");
 const jwt = require('jsonwebtoken');
 
-
-
-userController.index = async (req, res) =>{
-    console.log("entro a index - eventos");
-    res.sendFile('/public/index.html');
-}
-
-userController.usersAll = async (req, res) =>{
-    try {
-        const users = await User.find();
-        if (users.length > 0) {
-            res.status(200).json(users);
-        } else {
-            res.sendStatus(204);
-        }
-
-    } catch (error) {
-       res.sendStatus(409); 
-    }
-}
 userController.register = async (req, res) => {
     try {
         const valid = await User.findOne({email: req.body.email});
@@ -40,6 +20,7 @@ userController.register = async (req, res) => {
         res.sendStatus(409);
     }
 }
+
 userController.login = async (req, res) => {
     try {
         console.log(process.env.APP_JWT_SECRET_USER);
@@ -72,7 +53,6 @@ userController.login = async (req, res) => {
         res.sendStatus(409)
     }
 }
-
 
 userController.updatePass = async (req, res) => {
     try{
