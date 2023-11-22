@@ -29,6 +29,7 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
+//servir contenido estático
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
 
@@ -37,10 +38,15 @@ app.get('/generic', (req, res)=>{
     console.log('Ruta completa: ', filePath);
     res.sendFile(filePath);
 });
-app.get('/index', (req, res)=>{
-    const filePath = path.join(__dirname, '../public', 'index.html');
+app.get('/', (req, res)=>{
+    const filePath = path.join(__dirname, '../views');
     console.log('Ruta completa: ', filePath);
-    res.sendFile(filePath);
+    res.render('home',{
+        titulo: 'CelebraYa!!',
+        slogan: 'Un clic más cerca de la celebración perfecta.',
+        bienvenida: 'Organizá tu evento'
+
+    });
 });
 app.get('/elements', (req, res)=>{
     const filePath = path.join(__dirname, '../public', 'elements.html');
@@ -50,11 +56,11 @@ app.get('/elements', (req, res)=>{
 
 
 //en este punto concateno con la carpeta views, para que la pueda encontrar
-app.set('views', path.join(__dirname, 'views'));
+//app.set('views', path.join(__dirname, 'views'));
 app.set('public', path.join(__dirname, '../public'));
 //seguidamente doy objetos de configuración con sus propiedades, 
 //estas nos permiten saber de qué forma vamos a utilizar las vistas
-app.engine('hbs', exphbs =>({ 
+/*app.engine('hbs', exphbs =>({ 
     defaultLayout:'home.hbs' ,
     //archivo layouts donde voy a tener el home, que es donde están las conf generales de la pagina
     layoutsDir: path.join(app.get('views'), 'layouts'),
@@ -64,8 +70,9 @@ app.engine('hbs', exphbs =>({
     extname:'.hbs'
     //helpers: require('./lib/handlebars')
 }) );
+*/
 //anteriormente se configuró, ahora se utiliza meidante la siguiente linea
-app.set('view engine', '.hbs');
+app.set('view engine', 'hbs');
 
 app.use('/api',routes);
 
