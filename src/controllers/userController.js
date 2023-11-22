@@ -73,4 +73,51 @@ userController.login = async (req, res) => {
     }
 }
 
+
+userController.updatePass = async (req, res) => {
+    try{
+        const user = await User.findById(req.user._id)
+        if(user){
+            user.comparePassword(req.body.password, function (err, isMatch) {
+                if (err) { throw err };
+                if (isMatch) {
+                    const SALT_WORK_FACTOR = 10
+                    bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt) {
+                        if (err) return console.log('error salt:',err);
+                        bcrypt.hash(req.body.newPassword.toString(), salt, async function(err, hash) {
+                            if (err) return console.log('error hash:',err);
+                            await User.findByIdAndUpdate(req.user._id, {password: hash})
+                            res.sendStatus(202)
+                        });
+                    });
+                }else{
+                    res.sendStatus(400);
+                }
+            })
+        }else{
+            res.sendStatus(204)
+        }
+    }catch(e){
+        console.log(e)
+        res.sendStatus(409)
+    }
+}
+
+userController.search = async ( req, res ) => {
+    try {
+        let option = {}
+        option = typeof req.body.text == 'number' ?  {telefono: req.body.text} :  {email: req.body.text}
+        const user = await User.findOne({ option }).exec();
+        if (user) {
+            res.status(200).json(user);
+        } else {
+            res.sendStatus(204);
+        }
+        
+    } catch (error) {
+        console.log(error);
+        res.sendFile('/public/index.html');
+    }
+
+}
 module.exports = userController;

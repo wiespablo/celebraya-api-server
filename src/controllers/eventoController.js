@@ -22,4 +22,19 @@ eventoController.register = async (req, res) => {
     }
 }
 
+eventoController.misEventos = async ( req, res ) => {
+    try {
+        const eventos = await Evento.find({ $or: [ { anfitrion : req.user._id } , { 'lista_invitados.invitado': req.user._id } ] }).exec();
+        if (eventos) {
+
+            res.sendFile('');
+        } else {
+            res.sendFile('modal1')
+        }
+    } catch (error) {
+        console.log(error);
+        res.sendFile('error409');
+    }
+}
+
 module.exports = eventoController;

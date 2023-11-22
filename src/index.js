@@ -2,13 +2,20 @@ require("dotenv").config();
 require('./database');
 const path = require('path');
 const express = require("express");
+const hbs = require('hbs');
 const app = express();
 const PORT = process.env.APP_PORT || 6595
 const routes = require('./routes/routes');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const session = require('express-session');
-const hbs = require('hbs');
+
+//handlebars
+app.set('view engine', 'hbs');
+const filePathPartials = path.join(__dirname, '../views/partials');
+console.log("Ruta completa de partials: ", filePathPartials);
+hbs.registerPartials(filePathPartials);
+
 //settings - 
 //********************************* */
 //***********Middleware************
@@ -33,11 +40,6 @@ app.use(cors());
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
 
-app.get('/generic', (req, res)=>{
-    const filePath = path.join(__dirname, '../public', 'generic.html');
-    console.log('Ruta completa: ', filePath);
-    res.sendFile(filePath);
-});
 app.get('/', (req, res)=>{
     const filePath = path.join(__dirname, '../views');
     console.log('Ruta completa: ', filePath);
@@ -49,30 +51,33 @@ app.get('/', (req, res)=>{
     });
 });
 app.get('/elements', (req, res)=>{
-    const filePath = path.join(__dirname, '../public', 'elements.html');
+    const filePath = path.join(__dirname, '../views',);
     console.log('Ruta completa: ', filePath);
-    res.sendFile(filePath);
+    res.render('elements',{
+        titulo: 'CelebraYa!!',
+        slogan: 'Un clic más cerca de la celebración perfecta.',
+        bienvenida: 'Organizá tu evento'
+
+    });
 });
+
+app.get('/generic', (req, res)=>{
+    const filePath = path.join(__dirname, '../views');
+    console.log('Ruta completa: ', filePath);
+    res.render('generic',{
+        titulo: 'CelebraYa!!',
+        slogan: 'Un clic más cerca de la celebración perfecta.',
+        bienvenida: 'Organizá tu evento'
+    });
+});
+
+
 
 
 //en este punto concateno con la carpeta views, para que la pueda encontrar
 //app.set('views', path.join(__dirname, 'views'));
 app.set('public', path.join(__dirname, '../public'));
-//seguidamente doy objetos de configuración con sus propiedades, 
-//estas nos permiten saber de qué forma vamos a utilizar las vistas
-/*app.engine('hbs', exphbs =>({ 
-    defaultLayout:'home.hbs' ,
-    //archivo layouts donde voy a tener el home, que es donde están las conf generales de la pagina
-    layoutsDir: path.join(app.get('views'), 'layouts'),
-    //partials son pequeñas partes de html que podems usar en varias vistas, acá establezco dirección
-    partialsDir: path.join(app.get('views'), 'partials'),
-    //sirve para colocar qué extensión que van a tener nuestros archivos de handlebars
-    extname:'.hbs'
-    //helpers: require('./lib/handlebars')
-}) );
-*/
-//anteriormente se configuró, ahora se utiliza meidante la siguiente linea
-app.set('view engine', 'hbs');
+
 
 app.use('/api',routes);
 
