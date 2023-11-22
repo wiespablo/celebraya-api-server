@@ -120,4 +120,50 @@ userController.search = async ( req, res ) => {
     }
 
 }
+
+userController.invitaciones = async ( req, res ) => {
+    try {
+        const invitaciones = await invitacion.find({ usuario: req.user._id })
+                .populate([{
+                    path: 'evento',
+                    model: 'Eventos',
+                    select: 'fecha hora tematica',
+                    populate:{
+                        path: 'anfitrion',
+                        model: 'User',
+                        select: 'nombre apellido'
+                    }
+                    
+                }]);
+        if (invitaciones) {
+            
+            res.sendFile('modarInvitaciones');
+        } else {
+            res.sendFile('modalSinDatos')
+        }
+        
+    } catch (error) {
+        console.log(error);
+        res.sendFile('error409');
+    }
+}
+
+userController.confirmarInvitacion = async ( req, res ) => {
+    try {
+        const evento = await evento.findByIdAndUpdate(req.params.eventId, {
+            lista_invitados: {
+                "$elemMatch": {
+                    invitado: req.user._id
+                },
+                "$set": {
+                    estado: req.body.respuesta
+                }
+            }
+        }, { new: true }).exec();
+        
+    } catch (error) {
+        console.log(error);
+        res.sendFile('error409');
+    }
+}
 module.exports = userController;

@@ -21,4 +21,4 @@ const asignacionSchema = new Schema ({
 
 
 
-module.exports = model('Evento', comentarioSchema);
+module.exports = model('Asignacion', asignacionSchema);

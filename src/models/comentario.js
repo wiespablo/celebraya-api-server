@@ -21,5 +21,5 @@ const comentarioSchema = new Schema ({
 
 
 
-module.exports = model('Evento', comentarioSchema);
+module.exports = model('Comentario', comentarioSchema);
 
