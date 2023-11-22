@@ -9,7 +9,7 @@ const routes = require('./routes/routes');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const session = require('express-session');
-
+const filePath = path.join(__dirname, '../views');
 //handlebars
 app.set('view engine', 'hbs');
 const filePathPartials = path.join(__dirname, '../views/partials');
@@ -41,7 +41,7 @@ app.use('/static', express.static(path.join(__dirname, 'public')));
 
 
 app.get('/', (req, res)=>{
-    const filePath = path.join(__dirname, '../views');
+
     console.log('Ruta completa: ', filePath);
     res.render('home',{
         titulo: 'CelebraYa!!',
@@ -51,7 +51,6 @@ app.get('/', (req, res)=>{
     });
 });
 app.get('/elements', (req, res)=>{
-    const filePath = path.join(__dirname, '../views',);
     console.log('Ruta completa: ', filePath);
     res.render('elements',{
         titulo: 'CelebraYa!!',
@@ -62,7 +61,6 @@ app.get('/elements', (req, res)=>{
 });
 
 app.get('/generic', (req, res)=>{
-    const filePath = path.join(__dirname, '../views');
     console.log('Ruta completa: ', filePath);
     res.render('generic',{
         titulo: 'CelebraYa!!',
