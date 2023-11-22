@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 
 userController.index = async (req, res) =>{
     console.log("entro a index - eventos");
-    res.render('partials/evento');
+    res.sendFile('/public/index.html');
 }
 
 userController.usersAll = async (req, res) =>{

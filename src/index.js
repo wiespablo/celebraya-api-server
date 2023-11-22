@@ -6,11 +6,9 @@ const app = express();
 const PORT = process.env.APP_PORT || 6595
 const routes = require('./routes/routes');
 const bodyParser = require('body-parser');
-const exphbs = require('express-handlebars');
 const methodOverride = require('method-override');
 const session = require('express-session');
-const Handlebars = require('handlebars');
-const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
+const hbs = require('hbs');
 //settings - 
 //********************************* */
 //***********Middleware************
@@ -19,7 +17,7 @@ const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-acce
 //por ejemplo al registrarse cuando envíe su mail y contraseña
 //es extended false, porque no acepta imágenes solo datos
 app.use(bodyParser.urlencoded({extended: false}));
-
+app.use( express.static('public'));
 //con methodOverride los formularios pueden enviar ademas de get y post, también put y delete.
 app.use(methodOverride('_method'));
 app.use(session ({
@@ -31,15 +29,33 @@ app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
 
+app.use('/static', express.static(path.join(__dirname, 'public')));
+
+
+app.get('/generic', (req, res)=>{
+    const filePath = path.join(__dirname, '../public', 'generic.html');
+    console.log('Ruta completa: ', filePath);
+    res.sendFile(filePath);
+});
+app.get('/index', (req, res)=>{
+    const filePath = path.join(__dirname, '../public', 'index.html');
+    console.log('Ruta completa: ', filePath);
+    res.sendFile(filePath);
+});
+app.get('/elements', (req, res)=>{
+    const filePath = path.join(__dirname, '../public', 'elements.html');
+    console.log('Ruta completa: ', filePath);
+    res.sendFile(filePath);
+});
+
 
 //en este punto concateno con la carpeta views, para que la pueda encontrar
 app.set('views', path.join(__dirname, 'views'));
-
+app.set('public', path.join(__dirname, '../public'));
 //seguidamente doy objetos de configuración con sus propiedades, 
 //estas nos permiten saber de qué forma vamos a utilizar las vistas
-app.engine('.hbs', exphbs =>({ 
-    defaultLayout:'home' ,
-    handlebars: allowInsecurePrototypeAccess(Handlebars),
+app.engine('hbs', exphbs =>({ 
+    defaultLayout:'home.hbs' ,
     //archivo layouts donde voy a tener el home, que es donde están las conf generales de la pagina
     layoutsDir: path.join(app.get('views'), 'layouts'),
     //partials son pequeñas partes de html que podems usar en varias vistas, acá establezco dirección
