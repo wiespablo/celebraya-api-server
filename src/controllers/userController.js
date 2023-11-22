@@ -3,11 +3,11 @@ require('dotenv');
 const User = require("../models/user");
 const jwt = require('jsonwebtoken');
 
+
+
 userController.index = async (req, res) =>{
-    res.status(200).json({ 
-        "msg":"este es mi primer controlador",
-        "ok":"true"
-    })
+    console.log("entro a index - eventos");
+    res.render('partials/evento');
 }
 
 userController.usersAll = async (req, res) =>{
