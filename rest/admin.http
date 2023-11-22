@@ -1,0 +1,4 @@
+@urlLocal = http://localhost:3000/api
+
+GET {{urlLocal}}/admin/index
+Content-Type: application/json
