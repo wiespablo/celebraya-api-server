@@ -41,7 +41,11 @@ app.use('/static', express.static(path.join(__dirname, 'public')));
 
 
 app.get('/', (req, res)=>{
-
+/*    const HOME_URL ={
+        learnMore: '/generic',
+        generic: 'elements',
+        elements: 
+    }*/
     console.log('Ruta completa: ', filePath);
     res.render('home',{
         titulo: 'CelebraYa!!',
