@@ -1,10 +1,11 @@
 require("dotenv").config();
+require('./database');
 const express = require("express");
 const app = express();
 const PORT = process.env.APP_PORT || 6595
-const apiAdmin = require('./routes/api');
+const routes = require('./routes/routes');
 
-app.use('/api/admin',apiAdmin);
+app.use('/api/admin',routes);
 
 
 

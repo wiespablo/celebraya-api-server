@@ -1,6 +1,6 @@
-import mongoose from 'mongoose';//Es un ORM
+
 const bcrypt = require('bcrypt');//Para encriptar las contraseñas
-const { Schema, model } = mongoose;
+const { Schema, model } = require ('mongoose');
 
 const userSchema = new Schema ({
     nombre: String,

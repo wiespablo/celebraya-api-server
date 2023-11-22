@@ -1,13 +1,13 @@
-const adminController = {};
+const userController = {};
 const User = require("../models/user");
-adminController.index = async (req, res) =>{
+userController.index = async (req, res) =>{
     res.status(200).json({ 
         "msg":"este es mi primer controlador",
         "ok":"true"
     })
 }
 
-adminController.usersAll = async (req, res) =>{
+userController.usersAll = async (req, res) =>{
     try {
         const users = await User.find();
         if (users.length > 0) {
@@ -23,14 +23,4 @@ adminController.usersAll = async (req, res) =>{
 
 
 
-
-
-
-
-
-
-
-
-
-
-module.exports = adminController;
+module.exports = userController;
