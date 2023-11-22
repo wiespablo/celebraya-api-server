@@ -4,7 +4,6 @@ const userController = require('../controllers/userController');
 const eventoController = require('../controllers/eventoController');
 const userMiddleware = require('../middlewares/userMiddleware');
 //Llamo a las rutas que se van a motrar
-router.get('/index', userController.index )
 router.post('/register', userController.register)
 router.post('/login', userController.login)
 router.put('/usuario/actualizar-password', userMiddleware, userController.updatePass);
