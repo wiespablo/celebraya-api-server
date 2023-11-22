@@ -4,8 +4,13 @@ const express = require("express");
 const app = express();
 const PORT = process.env.APP_PORT || 6595
 const routes = require('./routes/routes');
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+const cors = require('cors');
+app.use(cors());
 
-app.use('/api/admin',routes);
+app.use('/api',routes);
 
 
 
