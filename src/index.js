@@ -49,21 +49,30 @@ app.get('/', (req, res)=>{
     console.log('Ruta completa: ', filePath);
     res.render('home',{
         titulo: 'CelebraYa!!',
-        slogan: 'Un clic más cerca de la celebración perfecta.',
-        bienvenida: 'Organizá tu evento'
+        slogan: '',
+        bienvenida: 'Un clic más cerca de la celebración perfecta.',
+        headerComentario: 'Organizar tu evento ahora es mucho más facil'
 
     });
 });
-app.get('/elements', (req, res)=>{
+app.get('/evento', (req, res)=>{
     console.log('Ruta completa: ', filePath);
-    res.render('elements',{
+    res.render('evento',{
+        titulo: 'CelebraYa!!',
+        slogan: 'Un clic más cerca de la celebración perfecta.',
+        bienvenida: ''
+
+    });
+});
+app.get('/usuario', (req, res)=>{
+    console.log('Ruta completa: ', filePath);
+    res.render('usuario',{
         titulo: 'CelebraYa!!',
         slogan: 'Un clic más cerca de la celebración perfecta.',
         bienvenida: 'Organizá tu evento'
 
     });
 });
-
 app.get('/generic', (req, res)=>{
     console.log('Ruta completa: ', filePath);
     res.render('generic',{

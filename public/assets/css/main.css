@@ -14,7 +14,7 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
-		font-size: 100%;
+		font-size: 50%;
 		font: inherit;
 		vertical-align: baseline;
 	}
@@ -1571,7 +1571,7 @@
 		background: #1b1b1b;
 	}
 
-		body.is-loading *, body.is-loading *:before, body.is-loading *:after {
+		body.is-loadinnering *, body.is-loading *:before, body.is-loading *:after {
 			-moz-animation: none !important;
 			-webkit-animation: none !important;
 			-ms-animation: none !important;
@@ -1685,7 +1685,7 @@
 	}
 
 	h1, h2, h3, h4, h5, h6 {
-		font-weight: 600;
+		font-weight: 300;
 		line-height: 1.5;
 		margin: 0 0 1em 0;
 		text-transform: uppercase;
@@ -3439,7 +3439,7 @@
 			}
 
 				#header > h1 a {
-					font-size: 1em;
+					font-size: 0.5em;
 				}
 
 	}
