@@ -9,11 +9,15 @@ const routes = require('./routes/routes');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const session = require('express-session');
+
+//direcciones de urls
 const filePath = path.join(__dirname, '../views');
+const filePathPartials = path.join(__dirname, '../views/partials');
+//console.log("Ruta completa de partials: ", filePathPartials);
+//console.log('Ruta completa: ', filePath);
+
 //handlebars
 app.set('view engine', 'hbs');
-const filePathPartials = path.join(__dirname, '../views/partials');
-console.log("Ruta completa de partials: ", filePathPartials);
 hbs.registerPartials(filePathPartials);
 
 //settings - 
@@ -27,11 +31,13 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use( express.static('public'));
 //con methodOverride los formularios pueden enviar ademas de get y post, también put y delete.
 app.use(methodOverride('_method'));
+
 app.use(session ({
     secret: 'secreto',
     resave: true,
     saveUninitialized: true
 }));
+
 app.use(bodyParser.json());
 const cors = require('cors');
 app.use(cors());
@@ -40,6 +46,8 @@ app.use(cors());
 app.use('/static', express.static(path.join(__dirname, 'public')));
 
 
+//**********HOME************ */
+//*************************** */
 app.get('/', (req, res)=>{
 /*    const HOME_URL ={
         learnMore: '/generic',
@@ -55,6 +63,9 @@ app.get('/', (req, res)=>{
 
     });
 });
+
+//**********EVENTO************ */
+//*************************** */
 app.get('/evento', (req, res)=>{
     console.log('Ruta completa: ', filePath);
     res.render('evento',{
@@ -64,23 +75,42 @@ app.get('/evento', (req, res)=>{
 
     });
 });
-app.get('/usuario', (req, res)=>{
-    console.log('Ruta completa: ', filePath);
+
+//**********USUARIO************ */
+//*************************** */
+app.get('/usuario', (req, res)=>{    
     res.render('usuario',{
         titulo: 'CelebraYa!!',
         slogan: 'Un clic más cerca de la celebración perfecta.',
         bienvenida: 'Organizá tu evento'
-
     });
 });
-app.get('/generic', (req, res)=>{
+
+//**********LOGIN************ */
+//*************************** */
+app.get('/login', (req, res)=>{
     console.log('Ruta completa: ', filePath);
-    res.render('generic',{
+    res.render('login',{
+        body_h1: 'Login', 
         titulo: 'CelebraYa!!',
         slogan: 'Un clic más cerca de la celebración perfecta.',
         bienvenida: 'Organizá tu evento'
     });
 });
+
+//**********INVITACION************ */
+//*************************** */
+app.get('/invitacion', (req, res)=>{
+    console.log('Ruta completa: ', filePath);
+    res.render('invitacion',{
+        body_h1: 'Invitacion', 
+        titulo: 'CelebraYa!!',
+        slogan: 'Un clic más cerca de la celebración perfecta.',
+        bienvenida: 'Organizá tu evento'
+    });
+});
+
+
 
 
 

@@ -4,6 +4,14 @@ const eventoSchema = new Schema ({
     tematica: String,
     lugar: String,
     fecha: Date,
+    /*
+    fecha: {
+        type: Date,
+        required: true,
+        min: new Date(new Date().setHours(0, 0, 0, 0)), // Establece la hora a las 00:00:00.000
+        max: new Date(new Date().setHours(23, 59, 59, 999)), // Establece la hora a las 23:59:59.999
+      },
+      */
     direccion: String,
     hora: String,
     anfitrion: {
@@ -21,6 +29,10 @@ const eventoSchema = new Schema ({
         }
     }],
 
+
+
+
+
 }, {
     timestamps: true  
 })
@@ -29,7 +41,5 @@ const eventoSchema = new Schema ({
 
 
 module.exports = model('Evento', eventoSchema);
-
-
 
 

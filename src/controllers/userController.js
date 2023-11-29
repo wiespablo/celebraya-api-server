@@ -35,6 +35,7 @@ userController.login = async (req, res) => {
                         email: user.email,
                         direccion: user.direccion,
                         telefono: user.telefono,
+                        apellido: user.apellido
                         
                     }
                     if(req.query.modeApp){
@@ -87,7 +88,9 @@ userController.search = async ( req, res ) => {
     try {
         let option = {}
         option = typeof req.body.text == 'number' ?  {telefono: req.body.text} :  {email: req.body.text}
-        const user = await User.findOne({ option }).exec();
+        console.log(option);
+        const user = await User.findOne( option ).exec();
+        
         if (user) {
             res.status(200).json(user);
         } else {
